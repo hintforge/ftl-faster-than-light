@@ -9,7 +9,7 @@ This file serves as the corpus manifest. FTL is a procedural roguelike -- there 
 ## Hintforge manifest
 
 ```
-corpus-core-version: 5
+corpus-core-version: 6
 game-version: "latest"
 game-version-platform: "PC / Steam"
 game-version-as-of: 2026-06-02

@@ -76,9 +76,9 @@
   <text class="mono rval-mute" x="352" y="610">none &#8212; a corpus-fed guide (FTL's save is binary)</text>
   <line x1="78" y1="632" x2="1422" y2="632" stroke="var(--rule)" stroke-width="1"/>
 
-  <circle cx="96" cy="668" r="10" fill="none" stroke="var(--ink-soft)" stroke-width="2" stroke-dasharray="4 3"/>
+  <circle cx="96" cy="668" r="10" fill="var(--active)" stroke="#3a7a52"/>
   <text class="mono b rlbl" x="130" y="676" fill="var(--ink-soft)">TOOLS</text>
-  <text class="mono rval-mute" x="352" y="676">none yet &#8212; a ship-loadout simulator is the natural fit</text>
+  <text class="mono rval-mute" x="352" y="676">power planner built &#8212; reactor budget, per-system reference figures</text>
 
   <circle cx="90" cy="712" r="9" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
   <text class="mono b" x="90" y="718" font-size="13px" text-anchor="middle" fill="var(--primary)">i</text>

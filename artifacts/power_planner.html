@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTL Power Allocation Scratchpad</title>
+<style>
+:root {
+  --bg: #0f1720;
+  --panel: #17222e;
+  --text: #e6edf3;
+  --muted: #9fb0bf;
+  --accent: #4da3ff;
+  --ok: #4caf7d;
+  --warn: #d9a441;
+  --error: #e0645a;
+  --border: #2a3a4a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: 1.3rem;
+  margin: 0 0 4px 0;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 16px 0;
+  font-size: 0.95rem;
+}
+
+#app {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.mode-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.mode-btn.active {
+  border-color: var(--accent);
+  background: #1c2c3d;
+}
+
+.mode-btn:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.mode-explain {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 16px 0;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+}
+
+textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 4px 0 16px 0;
+}
+
+table.systems {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+
+table.systems th,
+table.systems td {
+  border: 1px solid var(--border);
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 0.9rem;
+}
+
+table.systems th {
+  background: var(--panel);
+}
+
+table.systems input[type="number"] {
+  width: 5em;
+}
+
+td.note {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.status {
+  font-size: 0.85rem;
+  min-height: 1.1em;
+  margin-top: 2px;
+  white-space: pre-line;
+}
+
+.status.error { color: var(--error); }
+.status.warn { color: var(--warn); }
+.status.ok { color: var(--ok); }
+
+.banner {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.banner-warn {
+  background: #3a2f18;
+  border: 1px solid var(--warn);
+  color: #f2d9a0;
+}
+
+.hidden {
+  display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.budget {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+
+.budget p {
+  margin: 2px 0;
+}
+
+.over-budget {
+  color: var(--error);
+  font-weight: 700;
+}
+
+.remaining-ok {
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.compare-out {
+  margin: 8px 0 16px 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.action-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+button {
+  padding: 10px 14px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #06121d;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+  font-weight: 400;
+}
+
+footer {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 480px) {
+  body { padding: 10px; }
+  table.systems, table.systems tbody, table.systems tr, table.systems td, table.systems th {
+    display: block;
+    width: 100%;
+  }
+  /* The stacked layout below turns every cell into its own block, which made the
+     header row render as a card of its own -- three labels with no data under them,
+     sitting directly under the reactor input as the first thing a phone reader sees.
+     The body rows are self-describing without it (each row leads with the system name,
+     each input carries its own aria-label), so the header is taken out of the visual
+     flow rather than deleted, keeping it available to a screen reader. */
+  table.systems thead {
+    /* display:block first -- `position` is ignored on a table-header-group, so without
+       this the rule below silently does nothing and the header keeps its 120px card. */
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  table.systems th:first-child { border-bottom: none; }
+  table.systems tr { margin-bottom: 8px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  table.systems td, table.systems th { border: none; border-bottom: 1px solid var(--border); }
+  .action-row { flex-direction: column; }
+  .action-row button { width: 100%; }
+}
+
+</style>
+</head>
+<body>
+<h1>FTL: Faster Than Light -- Power Allocation Scratchpad</h1>
+<p class="subtitle">Plan your reactor power budget by hand. No account, no internet connection, no AI required -- this page only adds up numbers you type in.</p>
+
+<div id="app" role="main"><noscript>This tool needs JavaScript enabled to run. It never sends any data anywhere.</noscript></div>
+
+<footer>
+  <p>Vanilla Advanced Edition figures only. Weapons and Drone Control power draw depends on your loadout and is not modeled. Sources and limitations are embedded in this file (see the <code>hf-manifest</code> data block in its source). This is one prototype tool, not a full FTL companion app.</p>
+</footer>
+
+<script>
+"use strict";
+
+/* FTL Power Allocation Scratchpad
+ * Pure logic lives in the top section (exported for Node tests via module.exports
+ * when available). DOM wiring lives below and only runs in a browser (guarded by
+ * `typeof document !== 'undefined'`).
+ */
+
+var SCHEMA_VERSION = 1;
+var TOOL_ID = "ftl-power-allocation-scratchpad";
+var STORAGE_KEY = "hintforge.ftl_power_scratchpad.v1";
+var NOTE_MAX_LEN = 2000;
+
+// APP_MAX_ENTRY is an APPLICATION limit on manual number entry (keeps totals in
+// safe-integer arithmetic range and the UI sane). It is NOT a claim about what
+// the game allows -- see the per-system/per-reactor reference figures below,
+// which are informational only and never block save/export/import.
+var APP_MAX_ENTRY = 9999;
+
+// Background reference figures only, sourced from a community wiki + subagent
+// cross-check (see manifest.json data_source_references, confidence: medium).
+// These are shown to the player as informational context. They are NOT enforced
+// as game-legality rules: mods, patches, and undocumented bonus-power sources
+// (Zoltan crew, Backup Battery) are not verified here, so a value above these
+// figures is never rejected -- only flagged.
+var REACTOR_BASE_CAP_REF = 25;
+var REACTOR_ABSOLUTE_MAX_REF = 37; // reference figure combining 25 reactor + 8 Zoltan + 4 Backup Battery
+
+var SYSTEMS = [
+  { id: "shields", name: "Shields", maxPower: 8, capKnown: true,
+    note: "Reference: 2 power per bubble, up to 4 bubbles (8 power) at system level 8. Not enforced -- verify against your version." },
+  { id: "engines", name: "Engines", maxPower: 8, capKnown: true,
+    note: "Reference: 1 power per bar, levels 1-8 (8 power). Not enforced -- verify against your version." },
+  { id: "weapons", name: "Weapons", maxPower: null, capKnown: false,
+    note: "Power draw varies by weapon loadout -- not modeled. Enter your own total." },
+  { id: "oxygen", name: "Oxygen", maxPower: 3, capKnown: true,
+    note: "Reference: levels 1-3, a 1-3 power range (not a per-level formula). Not enforced." },
+  { id: "medbay", name: "Medbay", maxPower: 3, capKnown: true,
+    note: "Reference: levels 1-3, 1-3 power. Not enforced. Mutually exclusive with Clone Bay on a real ship." },
+  { id: "clonebay", name: "Clone Bay (AE)", maxPower: 3, capKnown: true,
+    note: "Reference: levels 1-3, 1-3 power. Not enforced. Mutually exclusive with Medbay on a real ship." },
+  { id: "teleporter", name: "Teleporter", maxPower: 1, capKnown: true,
+    note: "Reference: 1 power. Not enforced." },
+  { id: "cloaking", name: "Cloaking", maxPower: 1, capKnown: true,
+    note: "Reference: 1 power. Not enforced." },
+  { id: "hacking", name: "Hacking (AE)", maxPower: 3, capKnown: true,
+    note: "Reference: levels 1-3, 1-3 power. Not enforced." },
+  { id: "mindcontrol", name: "Mind Control (AE)", maxPower: 3, capKnown: true,
+    note: "Reference: levels 1-3, 1-3 power. Not enforced." },
+  { id: "dronecontrol", name: "Drone Control", maxPower: null, capKnown: false,
+    note: "Power draw varies by drone loadout -- not modeled. Enter your own total." }
+];
+
+var EXAMPLE_ALLOCATIONS = {
+  shields: 4, engines: 4, weapons: 4, oxygen: 1, medbay: 1,
+  clonebay: 0, teleporter: 0, cloaking: 0, hacking: 0, mindcontrol: 0, dronecontrol: 0
+};
+var EXAMPLE_AVAILABLE_POWER = 14;
+var EXAMPLE_NOTE = "Illustrative example only, not a sourced game fact: a fictional early-game " +
+  "loadout prioritizing Shields and Engines for evasion, with Weapons kept usable and a single " +
+  "point in Oxygen and Medbay for survivability. Replace with your own reasoning in Your Ship mode.";
+
+function systemById(id) {
+  for (var i = 0; i < SYSTEMS.length; i++) {
+    if (SYSTEMS[i].id === id) return SYSTEMS[i];
+  }
+  return null;
+}
+
+function isNonNegativeInteger(value) {
+  return typeof value === "number" && isFinite(value) && value >= 0 && Math.floor(value) === value;
+}
+
+// Structural bound used for anything a player types in: whole, non-negative,
+// a JS safe integer (guards against Infinity/overflow arithmetic), and under
+// the application's own entry ceiling. This is an application limit, not a
+// claim about game legality.
+function isAppBoundedInteger(value) {
+  return isNonNegativeInteger(value) && Number.isSafeInteger(value) && value <= APP_MAX_ENTRY;
+}
+
+/* Structural validation only. `ok:false` blocks save/export/import.
+ * `advisory` is informational-only text (may be non-empty even when ok:true)
+ * comparing the entry to an unenforced reference figure -- never a rejection. */
+function validateAllocationValue(systemId, value) {
+  var system = systemById(systemId);
+  if (!system) return { ok: false, message: "Unknown system: " + String(systemId), advisory: "" };
+  if (!isAppBoundedInteger(value)) {
+    return {
+      ok: false,
+      message: system.name + ": enter a whole number from 0 to " + APP_MAX_ENTRY + " (application limit, not a game rule).",
+      advisory: ""
+    };
+  }
+  var advisory = "";
+  if (system.capKnown && value > system.maxPower) {
+    advisory = system.name + ": " + value + " is above the reference figure of " + system.maxPower +
+      " power (" + system.note + "). Not blocked -- this tool does not verify game legality.";
+  }
+  return { ok: true, message: "", advisory: advisory };
+}
+
+function validateAvailablePower(value) {
+  if (!isAppBoundedInteger(value)) {
+    return {
+      ok: false,
+      message: "Available power must be a whole number from 0 to " + APP_MAX_ENTRY + " (application limit, not a game rule).",
+      advisory: ""
+    };
+  }
+  var advisory = "";
+  if (value > REACTOR_BASE_CAP_REF) {
+    advisory = "Above the commonly cited base reactor cap of " + REACTOR_BASE_CAP_REF +
+      " -- only reachable with bonus power sources (Zoltan crew, Backup Battery) this tool does not model. Reference only, not enforced.";
+  }
+  if (value > REACTOR_ABSOLUTE_MAX_REF) {
+    advisory += (advisory ? " " : "") + "This also exceeds the reference absolute-maximum figure (" +
+      REACTOR_ABSOLUTE_MAX_REF + ") cited in background sources -- unverified across patches/mods, not enforced.";
+  }
+  return { ok: true, message: "", advisory: advisory };
+}
+
+function sumAllocations(allocations) {
+  var total = 0;
+  for (var i = 0; i < SYSTEMS.length; i++) {
+    var v = allocations[SYSTEMS[i].id];
+    if (isNonNegativeInteger(v)) total += v;
+  }
+  return total;
+}
+
+function computeBudget(availablePower, allocations) {
+  var total = sumAllocations(allocations);
+  var remaining = availablePower - total;
+  return {
+    total: total,
+    remaining: remaining,
+    overBudget: total > availablePower
+  };
+}
+
+function diffAllocations(previous, current) {
+  var diffs = [];
+  for (var i = 0; i < SYSTEMS.length; i++) {
+    var id = SYSTEMS[i].id;
+    var prevVal = isNonNegativeInteger(previous[id]) ? previous[id] : 0;
+    var curVal = isNonNegativeInteger(current[id]) ? current[id] : 0;
+    if (prevVal !== curVal) {
+      diffs.push({ id: id, name: SYSTEMS[i].name, from: prevVal, to: curVal, delta: curVal - prevVal });
+    }
+  }
+  return diffs;
+}
+
+function sanitizeNote(note) {
+  if (typeof note !== "string") return "";
+  return note.slice(0, NOTE_MAX_LEN);
+}
+
+/* Structural gate applied uniformly before ANY persistence (local save or
+ * export) -- the same rules `validateImportPayload` applies on the way back
+ * in, so a value this tool will happily save/export can always be re-imported. */
+function validateStateForPersist(state) {
+  var errors = [];
+  if (!state || (state.mode !== "user" && state.mode !== "example")) {
+    errors.push("Internal error: state has no valid mode.");
+    return { ok: false, errors: errors };
+  }
+  var availCheck = validateAvailablePower(state.availablePower);
+  if (!availCheck.ok) errors.push(availCheck.message);
+
+  for (var i = 0; i < SYSTEMS.length; i++) {
+    var id = SYSTEMS[i].id;
+    var v = state.allocations ? state.allocations[id] : undefined;
+    if (v === undefined) v = 0;
+    var check = validateAllocationValue(id, v);
+    if (!check.ok) errors.push(check.message);
+  }
+
+  if (typeof state.note !== "string") {
+    errors.push("Note must be text.");
+  } else if (state.note.length > NOTE_MAX_LEN) {
+    errors.push("Note exceeds " + NOTE_MAX_LEN + " characters.");
+  }
+
+  return { ok: errors.length === 0, errors: errors };
+}
+
+/* Import/export payload validation. Returns { ok, errors, data }.
+ * On failure, `data` is null and the caller must NOT touch existing state. */
+function validateImportPayload(raw) {
+  var errors = [];
+  if (raw === null || typeof raw !== "object" || Array.isArray(raw)) {
+    return { ok: false, errors: ["File is not a JSON object."], data: null };
+  }
+  if (raw.toolId !== undefined && raw.toolId !== TOOL_ID) {
+    errors.push("This file was exported from a different tool (toolId " + JSON.stringify(raw.toolId) +
+      "); expected \"" + TOOL_ID + "\".");
+  }
+  if (raw.schemaVersion !== SCHEMA_VERSION) {
+    errors.push("Unsupported schemaVersion (expected " + SCHEMA_VERSION + ", got " +
+      JSON.stringify(raw.schemaVersion) + ").");
+  }
+  if (raw.mode !== "example" && raw.mode !== "user") {
+    errors.push("mode must be \"example\" or \"user\".");
+  }
+  var availablePower = raw.availablePower;
+  var availCheck = isAppBoundedInteger(availablePower) ? validateAvailablePower(availablePower)
+    : { ok: false, message: "availablePower must be a whole number from 0 to " + APP_MAX_ENTRY + "." };
+  if (!availCheck.ok) errors.push(availCheck.message);
+
+  var allocations = raw.allocations;
+  var cleanAllocations = {};
+  if (allocations === null || typeof allocations !== "object" || Array.isArray(allocations)) {
+    errors.push("allocations must be an object.");
+  } else {
+    for (var i = 0; i < SYSTEMS.length; i++) {
+      var id = SYSTEMS[i].id;
+      var v = allocations[id];
+      if (v === undefined) v = 0;
+      var check = validateAllocationValue(id, v);
+      if (!check.ok) {
+        errors.push(check.message);
+      } else {
+        cleanAllocations[id] = v;
+      }
+    }
+    var extraKeys = Object.keys(allocations).filter(function (k) { return !systemById(k); });
+    if (extraKeys.length > 0) {
+      errors.push("Unknown system keys in allocations: " + extraKeys.join(", "));
+    }
+  }
+
+  var note = raw.note;
+  if (note !== undefined && typeof note !== "string") {
+    errors.push("note must be a string.");
+  }
+  if (typeof note === "string" && note.length > NOTE_MAX_LEN) {
+    errors.push("note exceeds " + NOTE_MAX_LEN + " characters.");
+  }
+
+  if (errors.length > 0) {
+    return { ok: false, errors: errors, data: null };
+  }
+
+  return {
+    ok: true,
+    errors: [],
+    data: {
+      schemaVersion: SCHEMA_VERSION,
+      mode: raw.mode,
+      availablePower: availablePower,
+      allocations: cleanAllocations,
+      note: sanitizeNote(note || ""),
+      savedAt: typeof raw.savedAt === "string" ? raw.savedAt : null
+    }
+  };
+}
+
+function buildExportPayload(state) {
+  return {
+    schemaVersion: SCHEMA_VERSION,
+    toolId: TOOL_ID,
+    mode: state.mode,
+    availablePower: state.availablePower,
+    allocations: state.allocations,
+    note: sanitizeNote(state.note || ""),
+    savedAt: new Date().toISOString()
+  };
+}
+
+/* Validates, then (if a storageSetFn is given) attempts to persist. Never
+ * mutates `state`. On any failure -- structural invalidity or a storage
+ * exception/false return -- returns ok:false and the caller's existing state
+ * and drafts are left completely untouched (nothing is lost). */
+function attemptSave(state, storageSetFn) {
+  var check = validateStateForPersist(state);
+  if (!check.ok) {
+    return { ok: false, errors: check.errors, payload: null };
+  }
+  var payload = buildExportPayload(state);
+  var stored;
+  try {
+    stored = storageSetFn(payload);
+  } catch (e) {
+    stored = false;
+  }
+  if (!stored) {
+    return {
+      ok: false,
+      errors: ["Could not save locally (storage unavailable). Your in-progress work is unchanged -- use Export to keep a copy."],
+      payload: null
+    };
+  }
+  return { ok: true, errors: [], payload: payload };
+}
+
+/* Same structural gate as attemptSave, without touching storage. */
+function attemptExport(state) {
+  var check = validateStateForPersist(state);
+  if (!check.ok) {
+    return { ok: false, errors: check.errors, payload: null };
+  }
+  return { ok: true, errors: [], payload: buildExportPayload(state) };
+}
+
+function defaultUserState() {
+  var allocations = {};
+  for (var i = 0; i < SYSTEMS.length; i++) allocations[SYSTEMS[i].id] = 0;
+  return { schemaVersion: SCHEMA_VERSION, mode: "user", availablePower: 0, allocations: allocations, note: "", savedAt: null };
+}
+
+function exampleState() {
+  return {
+    schemaVersion: SCHEMA_VERSION,
+    mode: "example",
+    availablePower: EXAMPLE_AVAILABLE_POWER,
+    allocations: Object.assign({}, EXAMPLE_ALLOCATIONS),
+    note: EXAMPLE_NOTE,
+    savedAt: null
+  };
+}
+
+/* Pure mode-switch step: stores the outgoing state back into its own draft
+ * slot and returns the (unmodified, or freshly created) draft for the target
+ * mode. Never mixes example data into the user draft or vice versa, and never
+ * drops the outgoing draft's fields -- switching away and back returns the
+ * EXACT object last active in that mode. `drafts` is mutated in place and
+ * also returned for convenience. */
+function switchToMode(targetMode, currentState, drafts) {
+  drafts = drafts || {};
+  if (currentState) {
+    drafts[currentState.mode] = currentState;
+  }
+  var next = drafts[targetMode];
+  if (!next) {
+    next = targetMode === "example" ? exampleState() : defaultUserState();
+    drafts[targetMode] = next;
+  }
+  return { state: next, drafts: drafts };
+}
+
+var CORE = {
+  SCHEMA_VERSION: SCHEMA_VERSION,
+  TOOL_ID: TOOL_ID,
+  STORAGE_KEY: STORAGE_KEY,
+  NOTE_MAX_LEN: NOTE_MAX_LEN,
+  APP_MAX_ENTRY: APP_MAX_ENTRY,
+  REACTOR_BASE_CAP_REF: REACTOR_BASE_CAP_REF,
+  REACTOR_ABSOLUTE_MAX_REF: REACTOR_ABSOLUTE_MAX_REF,
+  SYSTEMS: SYSTEMS,
+  EXAMPLE_ALLOCATIONS: EXAMPLE_ALLOCATIONS,
+  EXAMPLE_AVAILABLE_POWER: EXAMPLE_AVAILABLE_POWER,
+  EXAMPLE_NOTE: EXAMPLE_NOTE,
+  systemById: systemById,
+  isNonNegativeInteger: isNonNegativeInteger,
+  isAppBoundedInteger: isAppBoundedInteger,
+  validateAllocationValue: validateAllocationValue,
+  validateAvailablePower: validateAvailablePower,
+  sumAllocations: sumAllocations,
+  computeBudget: computeBudget,
+  diffAllocations: diffAllocations,
+  sanitizeNote: sanitizeNote,
+  validateStateForPersist: validateStateForPersist,
+  validateImportPayload: validateImportPayload,
+  buildExportPayload: buildExportPayload,
+  attemptSave: attemptSave,
+  attemptExport: attemptExport,
+  defaultUserState: defaultUserState,
+  exampleState: exampleState,
+  switchToMode: switchToMode
+};
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = CORE;
+}
+
+/* ---------------------------------------------------------------------- *
+ * DOM wiring (browser only). Nothing below this line runs under Node.
+ * ---------------------------------------------------------------------- */
+if (typeof document !== "undefined") {
+  (function () {
+    var drafts = {};           // { user: <state>, example: <state> } -- live, independent working copies
+    var state = null;          // pointer to the currently active draft
+    var persistedBaseline = null;  // { source: "saved", data } -- last ACTUAL localStorage save, or null
+    var importedBaseline = null;   // { source: "imported", data } -- last imported file, or null
+    var storageAvailable = true;
+
+    // Persisted across full re-renders (render() rebuilds the DOM from
+    // scratch, which used to wipe out a just-set status message before the
+    // player ever saw it).
+    var saveStatusState = { message: "", kind: "" };
+    var exportStatusState = { message: "", kind: "" };
+    var importStatusState = { message: "", kind: "" };
+
+    function el(tag, attrs, children) {
+      var e = document.createElement(tag);
+      if (attrs) {
+        Object.keys(attrs).forEach(function (k) {
+          if (k === "class") e.className = attrs[k];
+          else if (k === "text") e.textContent = attrs[k];
+          else e.setAttribute(k, attrs[k]);
+        });
+      }
+      (children || []).forEach(function (c) { if (c) e.appendChild(c); });
+      return e;
+    }
+
+    function tryStorageGet() {
+      try {
+        var raw = window.localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        storageAvailable = false;
+        return null;
+      }
+    }
+
+    function tryStorageSet(payload) {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        return true;
+      } catch (e) {
+        storageAvailable = false;
+        return false;
+      }
+    }
+
+    function setStatus(elm, message, kind) {
+      if (!elm) return;
+      elm.textContent = message;
+      elm.className = "status " + (kind || "");
+    }
+
+    function cloneState(s) {
+      return JSON.parse(JSON.stringify(s));
+    }
+
+    function switchMode(targetMode) {
+      if (state.mode === targetMode) return;
+      var result = switchToMode(targetMode, state, drafts);
+      state = result.state;
+      drafts = result.drafts;
+      render();
+    }
+
+    function render() {
+      var root = document.getElementById("app");
+      root.innerHTML = "";
+
+      if (!storageAvailable) {
+        root.appendChild(el("div", { class: "banner banner-warn", role: "status", text:
+          "Local saving isn't available in this browser (private/incognito mode or storage disabled). " +
+          "Your work will not survive closing this tab. Use Export to keep a copy." }));
+      }
+
+      // Mode toggle
+      var modeRow = el("div", { class: "mode-row" });
+      ["example", "user"].forEach(function (m) {
+        var btn = el("button", {
+          class: "mode-btn" + (state.mode === m ? " active" : ""),
+          type: "button",
+          "aria-pressed": state.mode === m ? "true" : "false"
+        }, []);
+        btn.textContent = m === "example" ? "Example" : "Your Ship";
+        btn.addEventListener("click", function () { switchMode(m); });
+        modeRow.appendChild(btn);
+      });
+      root.appendChild(modeRow);
+
+      root.appendChild(el("p", { class: "mode-explain", text:
+        state.mode === "example"
+          ? "Example mode shows one illustrative loadout with fictional numbers. It never touches your Your Ship draft -- switch back any time and your own numbers are exactly as you left them."
+          : "Your Ship mode starts from your own numbers, kept separate from Example mode. Nothing is pre-filled for you." }));
+
+      // Available power
+      var availWrap = el("div", { class: "field" });
+      var availLabel = el("label", { for: "available-power", text: "Available reactor power" });
+      var availStatus = el("div", { id: "available-power-status", class: "status", role: "status", "aria-live": "polite" });
+      var availInput = el("input", {
+        id: "available-power", type: "number", min: "0", step: "1", value: String(state.availablePower),
+        "aria-describedby": "available-power-hint available-power-status"
+      });
+      availInput.addEventListener("input", function () {
+        var v = availInput.value === "" ? NaN : Number(availInput.value);
+        if (!isNonNegativeInteger(v) || !isAppBoundedInteger(v)) {
+          setStatus(availStatus, "Enter a whole number, 0 to " + APP_MAX_ENTRY + ".", "error");
+          return;
+        }
+        state.availablePower = v;
+        var check = validateAvailablePower(v);
+        if (!check.ok) {
+          setStatus(availStatus, check.message, "error");
+        } else if (check.advisory) {
+          setStatus(availStatus, check.advisory, "warn");
+        } else {
+          setStatus(availStatus, "", "");
+        }
+        renderBudget();
+      });
+      availWrap.appendChild(availLabel);
+      availWrap.appendChild(availInput);
+      availWrap.appendChild(availStatus);
+      root.appendChild(availWrap);
+      root.appendChild(el("p", { id: "available-power-hint", class: "hint", text:
+        "Reference only, not enforced: community sources cite a " + REACTOR_BASE_CAP_REF + "-bar base reactor cap and a " +
+        REACTOR_ABSOLUTE_MAX_REF + " absolute maximum (25 reactor + 8 Zoltan crew + 4 Backup Battery, unverified across mods/patches). Enter whatever your own game shows." }));
+
+      // Systems table
+      var table = el("table", { class: "systems" });
+      var thead = el("thead", {}, [el("tr", {}, [
+        el("th", { text: "System" }),
+        el("th", { text: "Allocated power" }),
+        el("th", { text: "Reference notes (not enforced)" })
+      ])]);
+      table.appendChild(thead);
+      var tbody = el("tbody");
+      SYSTEMS.forEach(function (system) {
+        var row = el("tr");
+        row.appendChild(el("td", { text: system.name }));
+        var cell = el("td");
+        var inputId = "alloc-" + system.id;
+        var statusId = "alloc-" + system.id + "-status";
+        var noteId = "alloc-" + system.id + "-note";
+        var label = el("label", { for: inputId, class: "visually-hidden", text: system.name + " allocated power" });
+        var input = el("input", {
+          type: "number", min: "0", step: "1",
+          id: inputId,
+          value: String(state.allocations[system.id] || 0),
+          "aria-describedby": noteId + " " + statusId
+        });
+        var cellStatus = el("div", { id: statusId, class: "status", role: "status", "aria-live": "polite" });
+        input.addEventListener("input", function () {
+          var v = input.value === "" ? NaN : Number(input.value);
+          if (!isNonNegativeInteger(v) || !isAppBoundedInteger(v)) {
+            setStatus(cellStatus, "Whole number, 0 to " + APP_MAX_ENTRY + ".", "error");
+            return;
+          }
+          state.allocations[system.id] = v;
+          var check = validateAllocationValue(system.id, v);
+          if (!check.ok) {
+            setStatus(cellStatus, check.message, "error");
+          } else if (check.advisory) {
+            setStatus(cellStatus, check.advisory, "warn");
+          } else {
+            setStatus(cellStatus, "", "");
+          }
+          renderBudget();
+          renderDependencyWarning();
+        });
+        cell.appendChild(label);
+        cell.appendChild(input);
+        cell.appendChild(cellStatus);
+        row.appendChild(cell);
+        row.appendChild(el("td", { id: noteId, class: "note", text: system.note }));
+        tbody.appendChild(row);
+      });
+      table.appendChild(tbody);
+      root.appendChild(table);
+
+      root.appendChild(el("div", { id: "dependency-warning", class: "banner banner-warn hidden", role: "status" }));
+
+      // Budget readout
+      root.appendChild(el("div", { id: "budget", class: "budget", role: "status", "aria-live": "polite" }));
+
+      // Comparison
+      var baseline = persistedBaseline || importedBaseline;
+      if (baseline) {
+        var compareBtn = el("button", { type: "button", class: "secondary" }, []);
+        compareBtn.textContent = baseline.source === "saved" ? "Compare to last saved" : "Compare to imported file";
+        var compareOut = el("div", { id: "compare-out", class: "compare-out" });
+        compareBtn.addEventListener("click", function () {
+          var diffs = diffAllocations(baseline.data.allocations, state.allocations);
+          compareOut.innerHTML = "";
+          var label = baseline.source === "saved" ? "your last local save" : "the imported file";
+          if (diffs.length === 0) {
+            compareOut.appendChild(el("p", { text: "No changes since " + label + "." }));
+          } else {
+            diffs.forEach(function (d) {
+              compareOut.appendChild(el("p", { text: d.name + ": " + d.from + " -> " + d.to +
+                " (" + (d.delta > 0 ? "+" : "") + d.delta + ")" }));
+            });
+          }
+        });
+        root.appendChild(compareBtn);
+        root.appendChild(compareOut);
+      }
+
+      // Note
+      var noteWrap = el("div", { class: "field" });
+      noteWrap.appendChild(el("label", { for: "player-note", text: "Why I chose this (your own words)" }));
+      var noteArea = el("textarea", {
+        id: "player-note", maxlength: String(NOTE_MAX_LEN), rows: "4", "aria-describedby": "player-note-hint"
+      });
+      noteArea.value = state.note || "";
+      noteArea.addEventListener("input", function () {
+        state.note = sanitizeNote(noteArea.value);
+      });
+      noteWrap.appendChild(noteArea);
+      root.appendChild(noteWrap);
+      root.appendChild(el("p", { id: "player-note-hint", class: "hint", text:
+        "This note belongs only to the mode you're in right now (Your Ship or Example) and is kept separately -- " +
+        "switching modes never overwrites it. Nothing here is inferred for you; write your own reasoning or leave it blank." }));
+
+      // Save / export / import
+      var actionRow = el("div", { class: "action-row" });
+
+      var saveBtn = el("button", { type: "button", "aria-describedby": "save-status" }, []);
+      saveBtn.textContent = "Save locally";
+      var saveStatus = el("div", { id: "save-status", class: "status", role: "status", "aria-live": "polite" });
+      saveBtn.addEventListener("click", function () {
+        if (state.mode !== "user") {
+          saveStatusState = { message: "Switch to Your Ship mode before saving -- example data is not saved.", kind: "error" };
+          setStatus(saveStatus, saveStatusState.message, saveStatusState.kind);
+          return;
+        }
+        var result = attemptSave(state, tryStorageSet);
+        if (result.ok) {
+          persistedBaseline = { source: "saved", data: cloneState(result.payload) };
+          saveStatusState = { message: "Saved locally at " + result.payload.savedAt + ".", kind: "ok" };
+          render();
+        } else {
+          saveStatusState = { message: "Not saved -- fix these first:\n" + result.errors.join("\n"), kind: "error" };
+          setStatus(saveStatus, saveStatusState.message, saveStatusState.kind);
+        }
+      });
+
+      var exportBtn = el("button", { type: "button", class: "secondary", "aria-describedby": "export-status" }, []);
+      exportBtn.textContent = "Export JSON";
+      var exportStatus = el("div", { id: "export-status", class: "status", role: "status", "aria-live": "polite" });
+      exportBtn.addEventListener("click", function () {
+        var result = attemptExport(state);
+        if (!result.ok) {
+          exportStatusState = { message: "Not exported -- fix these first:\n" + result.errors.join("\n"), kind: "error" };
+          setStatus(exportStatus, exportStatusState.message, exportStatusState.kind);
+          return;
+        }
+        var blob = new Blob([JSON.stringify(result.payload, null, 2)], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var a = el("a", { href: url, download: "ftl_power_scratchpad.json" });
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        exportStatusState = { message: "Exported.", kind: "ok" };
+        setStatus(exportStatus, exportStatusState.message, exportStatusState.kind);
+      });
+
+      var importInput = el("input", { type: "file", accept: "application/json", id: "import-file", class: "hidden" });
+      var importBtn = el("button", { type: "button", class: "secondary", "aria-describedby": "import-status" }, []);
+      importBtn.textContent = "Import JSON";
+      var importStatus = el("div", { id: "import-status", class: "status", role: "status", "aria-live": "polite" });
+      importBtn.addEventListener("click", function () { importInput.click(); });
+      importInput.addEventListener("change", function () {
+        var file = importInput.files[0];
+        importInput.value = "";
+        if (!file) return;
+        if (file.size > 200000) {
+          importStatusState = { message: "File too large for this scratchpad's data (max ~200KB). Existing work was not changed.", kind: "error" };
+          setStatus(importStatus, importStatusState.message, importStatusState.kind);
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function () {
+          var parsed;
+          try {
+            parsed = JSON.parse(String(reader.result));
+          } catch (e) {
+            importStatusState = { message: "That file isn't valid JSON. Existing work was not changed.", kind: "error" };
+            setStatus(importStatus, importStatusState.message, importStatusState.kind);
+            return;
+          }
+          var result = validateImportPayload(parsed);
+          if (!result.ok) {
+            importStatusState = { message: "Import rejected -- existing work was not changed:\n" + result.errors.join("\n"), kind: "error" };
+            setStatus(importStatus, importStatusState.message, importStatusState.kind);
+            return;
+          }
+          var imported = cloneState(result.data);
+          drafts[imported.mode] = imported;
+          state = imported;
+          importedBaseline = { source: "imported", data: cloneState(imported) };
+          importStatusState = { message: "Imported into " + (imported.mode === "user" ? "Your Ship" : "Example") + " mode as a draft (not yet saved locally).", kind: "ok" };
+          render();
+        };
+        reader.onerror = function () {
+          importStatusState = { message: "Could not read that file. Existing work was not changed.", kind: "error" };
+          setStatus(importStatus, importStatusState.message, importStatusState.kind);
+        };
+        reader.readAsText(file);
+      });
+
+      actionRow.appendChild(saveBtn);
+      actionRow.appendChild(exportBtn);
+      actionRow.appendChild(importBtn);
+      actionRow.appendChild(importInput);
+      root.appendChild(actionRow);
+      root.appendChild(saveStatus);
+      root.appendChild(exportStatus);
+      root.appendChild(importStatus);
+
+      // Re-apply any status message that predates this render (fixes messages
+      // that used to vanish the instant render() rebuilt the DOM).
+      setStatus(saveStatus, saveStatusState.message, saveStatusState.kind);
+      setStatus(exportStatus, exportStatusState.message, exportStatusState.kind);
+      setStatus(importStatus, importStatusState.message, importStatusState.kind);
+
+      renderBudget();
+      renderDependencyWarning();
+    }
+
+    function renderBudget() {
+      var budgetEl = document.getElementById("budget");
+      if (!budgetEl) return;
+      var budget = computeBudget(state.availablePower, state.allocations);
+      budgetEl.textContent = "";
+      budgetEl.appendChild(el("p", { text: "Allocated: " + budget.total + " / Available: " + state.availablePower }));
+      var remainingText = budget.overBudget
+        ? "Over budget by " + Math.abs(budget.remaining) + " power."
+        : "Remaining: " + budget.remaining + " power.";
+      var remainingP = el("p", { text: remainingText });
+      remainingP.className = budget.overBudget ? "over-budget" : "remaining-ok";
+      budgetEl.appendChild(remainingP);
+    }
+
+    function renderDependencyWarning() {
+      var warnEl = document.getElementById("dependency-warning");
+      if (!warnEl) return;
+      var medbay = state.allocations.medbay || 0;
+      var clonebay = state.allocations.clonebay || 0;
+      if (medbay > 0 && clonebay > 0) {
+        warnEl.textContent = "Medbay and Clone Bay are documented as mutually exclusive (a ship cannot install both) -- this scratchpad still lets you enter both so you can compare options, but only one can exist on a real ship.";
+        warnEl.classList.remove("hidden");
+      } else {
+        warnEl.classList.add("hidden");
+      }
+    }
+
+    function init() {
+      var saved = tryStorageGet();
+      var startState;
+      if (saved) {
+        var result = validateImportPayload(saved);
+        if (result.ok) {
+          persistedBaseline = { source: "saved", data: cloneState(result.data) };
+          startState = cloneState(result.data);
+        } else {
+          startState = defaultUserState();
+        }
+      } else {
+        startState = defaultUserState();
+      }
+      drafts.user = startState;
+      drafts.example = exampleState();
+      state = drafts.user;
+      render();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+}
+
+</script>
+<script type="application/json" id="hf-manifest">
+{
+  "format_revision": 1,
+  "tool_id": "ftl-power-allocation-scratchpad",
+  "tool_title": "FTL: Faster Than Light -- Power Allocation Scratchpad",
+  "game": "FTL: Faster Than Light",
+  "build_applicability": "Vanilla Advanced Edition (PC/Steam). Not verified against mods (Multiverse, Captain's Edition, etc).",
+  "data_source_references": [
+    {
+      "topic": "System list and per-system power figures",
+      "source_file": "Guides/ftl/items/systems.md",
+      "cited_origin": "ftl.fandom.com systems pages (community wiki) + subagent cross-check",
+      "capture_date": "2026-06-02",
+      "confidence": "medium"
+    },
+    {
+      "topic": "Reactor power cap and absolute maximum power",
+      "source_file": "Guides/ftl/mechanics.md (Power management section)",
+      "cited_origin": "P1 deep-research cascade datamining + ftl.fandom.com",
+      "capture_date": "2026-06-02",
+      "confidence": "medium"
+    },
+    {
+      "topic": "Medbay / Clone Bay mutual exclusivity (DEP-003)",
+      "source_file": "Guides/ftl/dependencies.md",
+      "cited_origin": "Cross-system dependency table, same 2026-06-02 research pass",
+      "capture_date": "2026-06-02",
+      "confidence": "medium"
+    }
+  ],
+  "content_hash": "not computed -- prototype has no build/compile step; hash a file this small manually if provenance tracking becomes load-bearing",
+  "template_revision": 1,
+  "authored_date": "2026-09-05",
+  "reviewed_date": "2026-09-05",
+  "known_limitations": [
+    "This is a manual arithmetic scratchpad, not a simulator. It sums numbers you type in; it does not compute in-combat outcomes.",
+    "Weapons and Drone Control power draw depends on your loadout and is not modeled -- enter your own total for those rows.",
+    "Zoltan crew (+1 free ion-proof power per crewed room) and Backup Battery (+2/+4 temporary power, 30s/20s cooldown) are documented power SOURCES that this tool does not add automatically. If you have either, your real available power is higher than your reactor bar count; enter that adjusted total yourself.",
+    "Battery, crew skill multipliers, ion damage, and system HP/damage state are not modeled at all.",
+    "Oxygen, Medbay, Clone Bay, Hacking, and Mind Control power ranges are taken directly from the sourced table's level range, not from a per-level formula -- the tool does not know which power value corresponds to which level.",
+    "No live game state is read. This tool never touches a save file.",
+    "Per-system and reactor power figures shown in-app are reference numbers only (see data_source_references, confidence: medium). This tool does not enforce them as game-legality rules -- a value above a reference figure is flagged with an advisory note but never blocked from being entered, saved, or exported, because mod/patch legality is unverified."
+  ],
+  "rights_and_credit": "System names and power figures are drawn from community wiki research already captured in this private guide's corpus (see data_source_references). No game assets, art, or copyrighted guide prose are bundled. This manifest and the accompanying HTML/JS/CSS are original authorship.",
+  "allowed_disclosure_scope": "Full tool is intended for open local/browser use -- no spoiler tier gating applies to reactor power arithmetic. Do not bundle this manifest with spoiler-tiered corpus content from Guides/ftl/ beyond the specific numeric facts cited above.",
+  "spoiler_scope": "none -- power allocation figures are mechanical, not narrative",
+  "no_backend": true,
+  "no_login": true,
+  "no_model_calls": true,
+  "no_analytics": true,
+  "no_remote_scripts_or_fonts": true,
+  "works_offline": true
+}
+</script>
+</body>
+</html>

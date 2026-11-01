@@ -1,23 +1,34 @@
-# FTL: Faster Than Light — Hintforge Companion
+# FTL: Faster Than Light
 
-![FTL companion status — coverage, how current it is, and spoiler control](assets/readme-status-card.svg)
+![FTL companion status: coverage, how current it is, and spoiler control](assets/readme-status-card.svg)
 
-![Power allocation scratchpad built on this corpus — reactor power split across every ship system, each row carrying the corpus reference figure, a flag when an entry runs past it, a running allocated-versus-available total, and a free-text note for your own reasoning](assets/readme-power-planner.png)
+![Power allocation scratchpad built on this corpus: reactor power split across every ship system, each row carrying the corpus reference figure, a flag when an entry runs past it, a running allocated-versus-available total, and a free-text note for your own reasoning](assets/readme-power-planner.png)
 
-A spoiler-controlled hint companion for **FTL: Faster Than Light**, the spaceship-management roguelike where you run one ship ahead of a pursuing fleet, one jump at a time. Built in the [Hintforge](https://github.com/hintforge/builder) format: a loyal sidekick that answers only from these guide files — never from guesswork — at the spoiler level you set.
+A free hint guide for FTL: Faster Than Light, with spoilers kept at the level you choose. Get help with this spaceship-management roguelike as you stay ahead of a pursuing fleet, one jump at a time. Your AI agent answers only from the guide files.
 
 ## Use it
 
-You need a Hintforge reader running in Claude Code, Codex, or OpenClaw. Point it at this repo:
+Install the [reader](https://github.com/hintforge/reader) in any AI agent that can read files on your computer, then tell it:
 
 > Load the FTL guide from github.com/hintforge/ftl-faster-than-light
 
-Then just ask — *"how do I fit this loadout," "what beats a Zoltan shield," "how do I win the flagship."* Runtime setup lives in [`hintforge/reader`](https://github.com/hintforge/reader).
+Try "how do I fit this loadout", "what beats a Zoltan shield" or "how do I win the flagship".
+
+The guide uses the [Hintforge](https://github.com/hintforge/builder) format. The agent reads and writes only files you control.
 
 ## Spoilers
 
-**You** set two independent dials — enemy warnings (Tier 0–5) and event/puzzle warnings (Tier 0–3) — both **silent by default**; the guide volunteers nothing until you raise one. Specific event outcomes are spoiler-tiered even though the underlying mechanics aren't. There's no save-state reader (FTL's save is binary), so every answer comes from this guide's files.
+Enemy warnings (Tier 0 to 5) and event or puzzle warnings (Tier 0 to 3) start silent. The guide volunteers nothing until you raise a dial. Specific event outcomes have spoiler levels; underlying mechanics don't.
+
+There is no save reader because FTL's save is binary.
 
 ## What's inside
 
-A structured Markdown corpus — ship systems and combat mechanics, crew races, weapons and drones, sector/faction events, and all achievements. It also ships one interactive tool: [`artifacts/power_planner.html`](artifacts/power_planner.html), a power-allocation scratchpad. Open the file in any browser — no account, no install, no AI — and it adds up how you have split reactor power, flags a system running past the corpus reference figure, notes where two systems cannot coexist on a real ship, and saves your plan locally. It checks your arithmetic; it does not verify what your version of the game allows. The companion reads and writes only the files you control.
+- Ship systems, combat mechanics and crew races.
+- Weapons, drones, sector and faction events, and all achievements.
+
+## Power planner
+
+Open [`artifacts/power_planner.html`](artifacts/power_planner.html) in any browser. It needs no account, installation or AI. The scratchpad totals reactor allocations, flags systems above guide reference figures, notes incompatible systems and saves your plan locally.
+
+It checks arithmetic. It doesn't verify what your game version allows.

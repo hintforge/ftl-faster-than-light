@@ -106,11 +106,16 @@ Non-obvious mechanics / quirky low-odds triggers (often hidden).
 _source: P1 deep-research cascade 2026-06-02 (Steam 100% Achievement Guide id=3667584738; ftl.fandom.com; Steam Hunters / TrueSteamAchievements) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_
 
 ## Notes
-- **#15 vs #40** both involve enemy fire: #15 = every square of any enemy ship ablaze; #40 = Rock Cruiser only, kill a burning enemy crew member on their ship. The #40 mapping is single-sourced -- verify. [class: community-wiki]
+- **#15 vs #40** both involve enemy fire: #15 = every square of any enemy ship ablaze; #40 = the Rock ship only (see the #40 row), kill a burning enemy crew member on their ship. The #40 mapping is single-sourced -- verify. [class: community-wiki]
+_source: P1 deep-research cascade 2026-06-02 (Steam 100% Achievement Guide id=3667584738; ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_ [Single source -- verify · class:community-wiki]
 - The only **missable** achievement is **#42 Ancestry** (gated behind the missable Crystal chain; see `sections/missables.md`). All others are reachable in any qualifying run.
+_source: P1 deep-research cascade 2026-06-02 (Steam 100% Achievement Guide id=3667584738; ftl.fandom.com; Steam Hunters / TrueSteamAchievements) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_
 - Hidden (H): #42, #46, #47, #48. The reader gates these names below the appropriate tier; full content is written here regardless.
+_source: P1 deep-research cascade 2026-06-02 (Steam 100% Achievement Guide id=3667584738; ftl.fandom.com; Steam Hunters / TrueSteamAchievements) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_
 > **Cross-system dependency** -- see `dependencies.md` DEP-007: Achievement #46 Sweet Revenge requires the Crystal Vengeance augment specifically; it cannot be earned any other way.
+_source: dependencies.md DEP-007 (stitch run 2026-06-03) · capture: derived · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_
 > **Cross-system dependency** -- see `dependencies.md` SEQ-003: Achievement #35 Diplomatic Immunity requires 4 alien crew blue events on the Federation Cruiser before the Sector 5 exit beacon; system/augment/weapon blue options do not count.
+_source: dependencies.md SEQ-003 (stitch run 2026-06-03) · capture: derived · confidence: medium · enemy-tier: 1 · puzzle-tier: 1 · category: mainline · spoiler: progression_
 
 ## Sources
 - Steam Community 100% Achievement Guide (id=3667584738); https://steamcommunity.com/stats/212680/achievements (canonical, Cloudflare-gated); gamingbolt.com / Destructoid (51-count); ftl.fandom.com; Steam Hunters; TrueSteamAchievements; GameFAQs.

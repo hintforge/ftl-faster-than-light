@@ -6,7 +6,7 @@
 **entity-hidden:** no
 **first-encounter-zone:** hidden_crystal_worlds
 **status:** research-integrated
-**last_reconciled:** 2026-06-02
+**last_reconciled:** 2026-11-24
 
 ## Current status
 Rare ancestor species; tanky with a unique room-lockdown power. Recruitable **only** through a multi-step missable event chain (or pre-installed on the Rock Cruiser Type C). Gated content.
@@ -16,7 +16,7 @@ Rare ancestor species; tanky with a unique room-lockdown power. Recruitable **on
 - Trait: **Lockdown power** -- seals the room it's in (and everyone inside) behind crystal for ~10s, on a cooldown; takes **0.5× suffocation damage.** Dying-animation time 2s.
 - Crystal Vengeance augment (10% chance to fire a shard back when hit; triggers "Sweet Revenge") is the Crystal ship-specific augment.
 - Crystal weapons (Crystal Burst I/II, Heavy Crystal I/II) pierce 1 shield and are sold only in the Hidden Crystal Worlds -- see `items/weapons.md`.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Crystal Cruiser page + datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_ — stats are visible once recruited. [Confirmed: datamining]
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Crystal Cruiser page + datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_ — stats are visible once recruited. [Confirmed: datamining]
 
 ## Recruitment / Access -- the Crystal Cruiser unlock chain (missable)
 

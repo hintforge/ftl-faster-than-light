@@ -6,7 +6,7 @@
 **entity-hidden:** no
 **first-encounter-zone:** rock_controlled
 **status:** research-integrated
-**last_reconciled:** 2026-06-02
+**last_reconciled:** 2026-11-24
 
 ## Current status
 Tanky, fire-immune, but slow. Recruited from Rock sectors.
@@ -16,7 +16,7 @@ Tanky, fire-immune, but slow. Recruited from Rock sectors.
 - Trait: **immune to fire damage** -- can stand in burning rooms to fight or repair; excellent boarder against fire-using ships and fire defender. Dying-animation time 2s.
 > **Cross-system dependency** -- see `../dependencies.md` DEP-004: Rock crew fire immunity allows fighting and repairing in burning rooms; fire weapons deal zero crew damage to Rock crew on enemy ships.
 - Rock Plating augment (15% chance to negate hull damage) is the Rock ship-specific augment.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: datamining + 2 sources]
 
 ## Recruitment / Access

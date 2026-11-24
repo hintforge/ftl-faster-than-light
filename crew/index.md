@@ -1,7 +1,7 @@
 # FTL: Faster Than Light -- Crew
 
 **status:** research-integrated
-**last_reconciled:** 2026-06-02
+**last_reconciled:** 2026-11-24
 **class:** crew
 
 ## Why this file exists
@@ -40,7 +40,7 @@ _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + JP iphoneac.com d
 - Untrained human repairs 1 system bar or seals 1 breach in 12.5s. Firefighting uses repair speed -- a lone Mantis is "nearly worthless" at it.
 - Only manned-station skills (Piloting/Shields/Engines/Weapons) credit XP while manning. Mantis combat threshold 7 vs human 8.
 - Dying-animation times (affect cloning / crew-kill timing): Rock/Crystal/Engi 2s; Human/Slug/Lanius 1.8s; Mantis 1.7s; Zoltan 1.5s.
-- _source: P1 deep-research cascade 2026-06-02 (datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_ — [Confirmed: datamining + 2 sources]
+_source: P1 deep-research cascade 2026-06-02 (datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_ — [Confirmed: datamining + 2 sources]
 
 ## Crystal crew event chain
 The Crystal crew are recruitable only via a missable multi-step chain (required for "Ancestry"). Full chain documented in `crew/crystal.md`; indexed in `sections/missables.md`.

@@ -6,7 +6,7 @@
 **entity-hidden:** no
 **first-encounter-zone:** zoltan_controlled
 **status:** research-integrated
-**last_reconciled:** 2026-06-02
+**last_reconciled:** 2026-11-24
 
 ## Current status
 Living power source: each Zoltan adds free power to its room's system, but is physically fragile. Recruited from Zoltan sectors.
@@ -17,7 +17,7 @@ Living power source: each Zoltan adds free power to its room's system, but is ph
 - **Two Zoltan in the shield room guarantee one un-ionizable shield bubble.**
 > **Cross-system dependency** -- see `../dependencies.md` DEP-002: Zoltan in the Shield room provides ion-proof power; two Zoltan guarantee at least one bubble that cannot be stripped by ion weapons.
 - Zoltan Shield augment (5-HP Super Shield on arrival) is the Zoltan ship-specific augment.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: datamining + 2 sources]
 
 ## Recruitment / Access

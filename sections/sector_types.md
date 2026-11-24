@@ -1,7 +1,7 @@
 # FTL: Faster Than Light -- Sector Type Notes
 
 **status:** research-integrated
-**last_reconciled:** 2026-06-02 (P2 beacon distribution + hazard data added)
+**last_reconciled:** 2026-11-24 (P2 beacon distribution + hazard data added)
 
 FTL is procedural -- there is no fixed sector sequence -- but **sector types** appear in known positional windows and carry consistent event pools. This file holds per-sector-type event/behavior notes. The canonical sector-type list, positional windows, and zone-graph mechanics live in `architecture_manifest.md` and `mechanics.md`; per-sector navigation traversal patterns and the Blue Options table are a P2 target.
 
@@ -9,7 +9,7 @@ FTL is procedural -- there is no fixed sector sequence -- but **sector types** a
 
 Enemy-ship-behavior and event facts below are `spoiler: progression` (enemy-tier 1) -- written in full, gated from preemptive display at enemy tier 0, available on request. Build tips are `spoiler: none`. Crystal/Last-Stand content is `spoiler: late-game`.
 
-_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Sectors + event pages; JP/RU community sources) · capture: web_fetch · confidence: medium · category: mainline_ — governs all entries below; per-entry spoiler tier noted inline.
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Sectors + event pages; JP/RU community sources) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_ — governs all entries below; per-entry spoiler tier noted inline.
 
 ## civilian_starting / civilian
 Sector 1 always (starting); civilian recurs 2-7. Green, easiest.

@@ -1,13 +1,13 @@
 # FTL: Faster Than Light -- Achievements
 
 **status:** research-integrated
-**last_reconciled:** 2026-06-02
+**last_reconciled:** 2026-11-24
 **stub_source:** Steam
 **stub_fetched:** 2026-06-02
 
 Single source of truth for FTL's 51 Steam achievements. Built from the P1 deep-research result; every stub is **resolved** (no deferrals or unreachables this phase -- FTL has no paid DLC). Entries are organized by `trigger_type`. Hidden (H) = Steam-hidden name. Most FTL achievements are **ship-specific** (require an exact ship class, any layout) or **run-condition** (something true at run's end).
 
-_source: P1 deep-research cascade 2026-06-02 (Steam 100% Achievement Guide id=3667584738; ftl.fandom.com; Steam Hunters / TrueSteamAchievements) · capture: web_fetch · confidence: medium · category: mainline_ — governs all rows. [Confirmed: 4+ sources for the set; some trigger details single-sourced (see notes).]
+_source: P1 deep-research cascade 2026-06-02 (Steam 100% Achievement Guide id=3667584738; ftl.fandom.com; Steam Hunters / TrueSteamAchievements) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_ — governs all rows. [Confirmed: 4+ sources for the set; some trigger details single-sourced (see notes).]
 
 > Coverage: **51 stubs / 51 resolved / 0 deferred / 0 unreachable.**
 

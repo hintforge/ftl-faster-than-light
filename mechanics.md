@@ -1,7 +1,7 @@
 # FTL: Faster Than Light -- Mechanics
 
 **status:** research-integrated
-**last_reconciled:** 2026-06-02
+**last_reconciled:** 2026-11-24
 
 Cross-system dependency density: HIGH. FTL's systems interact deeply -- power allocation competes across all systems; weapon types interact (ion drains shields enabling other weapons); crew skill affects system efficiency; fire/breach propagate through rooms; boarding vs. weapon strategies compete for the same power budget.
 
@@ -13,7 +13,7 @@ The reactor supplies power bars that allocate across systems; powering one syste
 
 - **Absolute maximum power = 37** (25 reactor + 8 Zoltan crew + 4 Backup Battery). Reactor caps at 25 bars; reactor upgrade costs run 30 / 20 / 25 / 30 / 35 scrap per 5-bar band.
 - Zoltan crew each add +1 free power to their occupied system's room (ion-proof). Backup Battery (AE) supplies +2 / +4 temporary power for 30s on a 20s cooldown and is itself ion-immune.
-- _source: P1 deep-research cascade 2026-06-02 (datamining + ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (datamining + ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: subagent + community-wiki]
 
 ## Shield system
@@ -24,7 +24,7 @@ The reactor supplies power bars that allocate across systems; powering one syste
 - **Zoltan Super Shield:** a 5-HP layer (from enemy Zoltan ships or the Zoltan Shield augment) that is impenetrable by everything -- including boarding, missiles, and bombs -- until depleted.
 > **Cross-system dependency** -- see `dependencies.md` DEP-002: Zoltan crew in the Shield room provides +1 ion-proof power bar; two Zoltan guarantee one un-ionizable bubble.
 > **Cross-system dependency** -- see `dependencies.md` DEP-008: The Zoltan Shield Bypass augment is the only way to use Teleporter or Mind Control through an enemy Zoltan Super Shield.
-- _source: P1 deep-research cascade 2026-06-02 (datamining + ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (datamining + ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: subagent + wiki]
 
 ## Weapon mechanics
@@ -39,7 +39,7 @@ See `items/weapons.md` for the full per-weapon stat tables. Mechanism notes:
 > **Cross-system dependency** -- see `dependencies.md` DEP-006: Weapon Pre-Igniter gives charge weapons only one charge after a jump, not a full charge; the Chain Vulcan and Glaive Beam are not fully ready on the first shot.
 - **Two ion weapons are dramatically stronger than one** -- the second ion lands before the 5s ion timer expires, enabling infinite shield lockdown. (Under-emphasized on the English wiki; surfaced by Japanese sources iphoneac.com / hatelabo.jp.)
 - The **Anti-Bio Beam** must physically cross the tile a crew member stands on (unlike other weapons, which damage everyone in a hit room).
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + JP iphoneac.com/hatelabo.jp + subagent) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + JP iphoneac.com/hatelabo.jp + subagent) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: 2+ sources incl. Japanese -- ion-stacking insight extends English wiki]
 
 ## Engine system & evasion
@@ -47,7 +47,7 @@ See `items/weapons.md` for the full per-weapon stat tables. Mechanism notes:
 - **+5% evasion per Engines bar** (requires an operational Piloting subsystem with a crew member in the room).
 - Engines manning skill adds +5 / +7 / +10% by skill level; Piloting manning adds up to +20% "free." Autopilot (no Piloting crew) yields 50% (Piloting-2) / 80% (Piloting-3) of engine evasion. **Hacked or unmanned Piloting/Engines = 0% evasion.**
 - Practical evasion wall ≈ 45%; active Cloak adds a flat +60% (unaffected by anything, fills toward 100%). **Beams can never be dodged.**
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: 4 sources]
 
 ## FTL drive & sector progression
@@ -55,7 +55,7 @@ See `items/weapons.md` for the full per-weapon stat tables. Mechanism notes:
 - 8-sector run structure; sector 1 is always the Civilian (Starting) Sector and sector 8 is always The Last Stand.
 - **Rebel Fleet pursuit:** the fleet advances as a red shaded area from the left; datamined, the pursuit value increases by 0x40 per jump (≈ one beacon "column" per jump). Visiting a nebula beacon **in a non-nebula sector halves** the advance that turn; visiting a nebula beacon **while inside a nebula sector** reduces it only partially (by 1/5 of the regular rate). Letting a Rebel scout/auto-ship escape (or not jumping before it does) **doubles** pursuit for 1 turn. Hiring a mercenary delays the fleet 2 turns; the Distraction Buoys augment postpones advancement by 1 turn at sector start.
 - **Exit beacon:** always present and visible, on the opposite side from start; reaching it opens the next-sector choice (edge type: story-gate). Within a sector you may revisit beacons (1 fuel each); between sectors there is **no backtracking** after jumping (one-way edge).
-- _source: P1 deep-research cascade 2026-06-02 (Rebel Fleet wiki page + FearLess Cheat Engine datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (Rebel Fleet wiki page + FearLess Cheat Engine datamining) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: 4 sources incl. datamining]
 
 > Sector-type event pools and per-sector navigation notes live in `sections/sector_types.md`. The Rebel **Pursuit Fleet** (above) is distinct from **Rebel Controlled Sectors** (mid-late hostile sectors) -- see `factions/rebels.md`.
@@ -67,7 +67,7 @@ See `items/weapons.md` for the full per-weapon stat tables. Mechanism notes:
 > **Cross-system dependency** -- see `dependencies.md` DEP-004: Rock crew are fully fire-immune and can stand in burning rooms to fight or repair.
 - **Fire:** ignites via weapon proc chance (and Fire Beam/Fire Bomb at high %); spreads to adjacent rooms per tick; damages systems and crew. Extinguished by crew repair-speed, by venting the room to vacuum, or by O2 depletion. **Rock crew are fire-immune**; Fire Suppression augment auto-extinguishes all fires.
 - **Breach:** created by some weapons (% per shot), asteroids, and guaranteed by Boarding Drones. Causes O2 loss (no extra hull damage) and must be sealed before the room can be manned/repaired. **Seal speed = repair speed** (12.5s/bar for an untrained human).
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + JP sources) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + JP sources) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed]
 
 ## Crew combat & boarding
@@ -77,33 +77,33 @@ See `items/weapons.md` for the full per-weapon stat tables. Mechanism notes:
 > **Cross-system dependency** -- see `dependencies.md` DEP-005: Neither Teleporter nor Boarding Drone can act on a cloaked ship; Cloaking provides full boarding immunity while active.
 - **Clone Bay (AE)** revives dead crew on jump (or on Wait, per a dev patch) with skill loss; it **cannot heal mid-fight** (the key difference from Medbay), is **incompatible with Medbay**, and Engi Med-bot Dispersal does not work with it. Clone Bay + boarding = low-risk aggression (dead boarders re-clone on jump).
 > **Cross-system dependency** -- see `dependencies.md` DEP-003: Clone Bay and Medbay are mutually exclusive; installing one prevents the other; Engi Med-bot Dispersal healing also stops working with Clone Bay.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + JP sources + dev quote Matthew Davis) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + JP sources + dev quote Matthew Davis) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: 2 sources + dev quote]
 
 ## Cloaking
 
 - Active cloak grants a flat **+60% evasion** and **stops enemy weapon charge** for its duration. Your own weapons keep charging during cloak (use the Stealth Weapons augment to fire without decloaking). Cloak as the enemy volley is mid-flight to dodge it.
 > **Cross-system dependency** -- see `dependencies.md` DEP-011: Stealth Weapons augment is required to fire during Cloaking without cancelling the cloak effect.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed]
 
 ## Hacking (Advanced Edition)
 
 - Disables one targeted enemy system for **4 / 7 / 10s** (L1/2/3). The hacking pulse must finish before the cooldown; it **cannot launch through a Zoltan Super Shield** even with bypass. Hacked doors become level-3 blast doors that self-heal in 7s. Hacked Piloting/Engines drops enemy evasion to 0. Hacking Drone Control has a 39 / 62 / 77% chance (L1/2/3) to destroy a drone.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + subagent) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + subagent) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: subagent + wiki]
 
 ## Mind Control (Advanced Edition)
 
 - Controls one enemy crew member for **14 / 20 / 28s** (L1/2/3); L2-3 boost the controlled crew's HP and combat. Blocked by a Zoltan Super Shield (unless bypass). **Slugs and Lanius are immune.** Cooldown resets on jump; full ionization caps cooldown at 25s.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed]
 
 ## Scrap & economy
 
 - **Scrap** is the universal currency. Reward scales with sector number × difficulty (lower difficulty gives MORE scrap; resource rewards are fixed). Scrap Recovery Arm augment adds +10% from all sources (not selling); Repair Arm adds +2 hull per scrap pickup but −15% scrap. Hull-repair store price scales with sector number.
 - Thresholds: **600+ scrap on hand** = "Scrap Hoarder" achievement; **10,000 cumulative across all games** = "Rule Ten: Greed is Eternal."
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + subagent) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + subagent) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed: subagent + wiki]
 
 ## Run resources
@@ -112,7 +112,7 @@ See `items/weapons.md` for the full per-weapon stat tables. Mechanism notes:
 - **Missiles:** 1 consumed per missile/bomb volley (Swarm/Pegasus use 1 for a multi-shot). Explosive Replicator augment = 50% chance not to consume.
 - **Drone Parts:** consumed deploying drones and launching hacking drones; recoverable with the Drone Recovery Arm (external drones only, jump after 2 repairs).
 - **Crew:** maximum 8; runs start with 1-4; a 9th forces you to relieve one.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + subagent) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + subagent) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_
 - [Confirmed]
 
 ## Builds / loadouts
@@ -136,7 +136,7 @@ Build recommendations (interpretation, not falsifiable claims -- no claim metada
 - **Phase 3:** gains a Zoltan Super Shield (regenerates on Power Surge), Mind Control, and a Teleporter; the Power Surge fires a 7-shot laser barrage or refills the shield. ~28% dodge, 3-4 base shields; missile/laser Artillery jump to Level 4. Cloak the SECOND missile volley to also dodge the surge.
 - **Critical target every phase:** knock out the missile launcher (you need a reliable ~7 damage). Hacking + boarding trivialize the fight.
 - **Difficulty scaling:** on Easy + AE-off the Flagship has only 3 shield layers (shield L6) instead of 4 (L8). On Hard it gains 2 extra rooms linking the Laser/Missile mounts to the main ship (harder to stop repairs), and having >25% evasion puts your Piloting/Engines on its high-priority target list.
-- _source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + Steam guides) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 0 · category: mainline · spoiler: late-game_
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com + Steam guides) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 0 · category: mainline · spoiler: late-game_
 - [Confirmed: 4-5 sources] · see `factions/rebels.md` for full summary
 
 ## Blue Options (Locks-and-Keys)

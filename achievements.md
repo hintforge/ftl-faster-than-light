@@ -115,7 +115,7 @@ _source: P1 deep-research cascade 2026-06-02 (Steam 100% Achievement Guide id=36
 > **Cross-system dependency** -- see `dependencies.md` DEP-007: Achievement #46 Sweet Revenge requires the Crystal Vengeance augment specifically; it cannot be earned any other way.
 _source: dependencies.md DEP-007 (stitch run 2026-06-03) · capture: derived · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_
 > **Cross-system dependency** -- see `dependencies.md` SEQ-003: Achievement #35 Diplomatic Immunity requires 4 alien crew blue events on the Federation Cruiser before the Sector 5 exit beacon; system/augment/weapon blue options do not count.
-_source: dependencies.md SEQ-003 (stitch run 2026-06-03) · capture: derived · confidence: medium · enemy-tier: 1 · puzzle-tier: 1 · category: mainline · spoiler: progression_
+_source: dependencies.md SEQ-003 (stitch run 2026-06-03) · capture: derived · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: progression_
 
 ## Sources
 - Steam Community 100% Achievement Guide (id=3667584738); https://steamcommunity.com/stats/212680/achievements (canonical, Cloudflare-gated); gamingbolt.com / Destructoid (51-count); ftl.fandom.com; Steam Hunters; TrueSteamAchievements; GameFAQs.

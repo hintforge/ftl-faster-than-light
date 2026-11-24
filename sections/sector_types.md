@@ -9,7 +9,7 @@ FTL is procedural -- there is no fixed sector sequence -- but **sector types** a
 
 Enemy-ship-behavior and event facts below are `spoiler: progression` (enemy-tier 1) -- written in full, gated from preemptive display at enemy tier 0, available on request. Build tips are `spoiler: none`. Crystal/Last-Stand content is `spoiler: late-game`.
 
-_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Sectors + event pages; JP/RU community sources) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_ — governs all entries below; per-entry spoiler tier noted inline.
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Sectors + event pages; JP/RU community sources) · capture: web_fetch · confidence: medium · enemy-tier: 0 · puzzle-tier: 0 · category: mainline · spoiler: none_ — source for all entries below; per-entry spoiler tier noted inline, and the late-game entries carry their own tier tag under them.
 
 ## civilian_starting / civilian
 Sector 1 always (starting); civilian recurs 2-7. Green, easiest.
@@ -45,6 +45,7 @@ Recurs / once at 3+. Red, frequent boarding.
 ## rock_controlled / rock_homeworlds
 Recurs / once at 5+. Red.
 - `spoiler: late-game` -- Rock **Homeworlds** holds the **Ancient device** (Crystal chain step 3): with Ruwen alive, a blue option teleports you to the Hidden Crystal Worlds. Once per game, sector 5+ only -- the hard bottleneck of the Crystal unlock. See `crew/crystal.md`. [Confirmed: 5 sources]
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Sectors + event pages; JP/RU community sources) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_
 - `spoiler: progression` (enemy-tier 1) -- Rock ships have Rock Plating (15% chance to ignore hull damage). Crystal Lockdown Bombs purchasable (rarity 4 controlled / 2 homeworlds). [Confirmed]
 - `spoiler: none` (build) -- Fire weapons are weak vs fire-immune Rock crew; bring direct damage.
 - `spoiler: none` (P2 beacon distribution) -- Approx. 2 stores, 6-8 hostile, 7-8 neutral. High neutral count means more no-fight / talk/trade events. [Confirmed: wiki datamining]
@@ -88,11 +89,13 @@ Recurs 2-7 (early best). **AE-only.** Lanius-themed.
 Off-map, reached only after Rock Homeworlds via the Ancient device. Base-game secret.
 - `spoiler: late-game` -- Only Crystal weapons/Lockdown Bombs sold; only Crystal crew as rewards. Enemy strength scales to the Rock Homeworlds sector number. Rebels still pursue. Exit teleports to a random post-Rock-HW sector (no choice). See `crew/crystal.md`. [Confirmed: 3 sources]
 - `spoiler: late-game` · **missable: yes** -- Requires the full Crystal chain; fails permanently if Rock Homeworlds doesn't appear by end of sector 7, or if Ruwen dies en route.
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Sectors + event pages; JP/RU community sources) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 1 · category: mainline · spoiler: late-game_
 
 ## the_last_stand
 Sector 8 always. Hardest. Hosts the Rebel Flagship (final boss).
 - `spoiler: late-game` -- Entry grants 10 hull repair + 10 fuel. Three reusable repair beacons (15 hull + 22-44 scrap, 5 fuel, 4 missiles, 5 drone parts first visit; reusable via Wait). Flagship jumps toward the Base every 2 player jumps; 3 consecutive jumps on the Base = loss. See `mechanics.md` → The Rebel Flagship. [Confirmed: 4 sources]
 - `spoiler: late-game` (controls) -- Waiting ticks the map forward and starts the next fight with full FTL charge. Flagship caps your Sensors at level 2.
+_source: P1 deep-research cascade 2026-06-02 (ftl.fandom.com Sectors + event pages; JP/RU community sources) · capture: web_fetch · confidence: medium · enemy-tier: 2 · puzzle-tier: 0 · category: mainline · spoiler: late-game_
 
 ## Sources
 - ftl.fandom.com Sectors and event pages (community-wiki, captured 2026-06-02); Japanese (iphoneac.com, seesaawiki.jp, hatelabo.jp) and Russian (StopGame.ru, ru.fandom.com) community sources; Steam guides.
